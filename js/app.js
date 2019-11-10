@@ -7,7 +7,6 @@ var input; 							//MediaStreamAudioSourceNode we'll be recording
 var imgButton = document.getElementById("mic_image");
 var isRec = false;
 var notificationStrings = ["Dog", "Police car (siren)", "Siren", "Ambulance (siren)", "Emergency vehicle", "Fire alarm", "Alarm", "Car alarm", "Bicycle bell"];
-var recentNotif = {};
 
 function onLoad() {
     imgButton.addEventListener('click', function () {
@@ -95,13 +94,13 @@ async function notify(notificationStr) {
     if (!lock2) {
         lock2 = true;
         console.log("I HAVE THE LOCK!!!!!!");
-        navigator.vibrate(500);
         Notification.requestPermission().then(function (permission) {
             // If the user accepts, let's create a notification
-            //if (permission === "granted") {
-            var notification = new Notification("Notifications are enabled!");
-            setTimeout(notification.close.bind(notification), 3000);
-            //}
+            if (permission === "granted") {
+                var notification = new Notification("Be careful, I think I hear a " + notificationStr + ".");
+                navigator.vibrate(500);
+                setTimeout(notification.close.bind(notification), 3000);
+            }
         });
         await sleep(10000);
         lock2 = false;
