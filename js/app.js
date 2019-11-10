@@ -19,12 +19,14 @@ stopButton.addEventListener("click", stopRecording);
 pauseButton.addEventListener("click", pauseRecording);
 
 var soundLevel
+var lock
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function recordAudio() {
+    lock = false
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     .then(function (stream) {
         audioContext = new AudioContext();
@@ -38,7 +40,7 @@ async function recordAudio() {
         microphone.connect(analyser);
         analyser.connect(javascriptNode);
         javascriptNode.connect(audioContext.destination);
-        javascriptNode.onaudioprocess = function () {
+        javascriptNode.onaudioprocess = async function () {
             var array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             var values = 0;
@@ -53,10 +55,12 @@ async function recordAudio() {
             if(soundLevel > 70){
                 console.log(Math.round(soundLevel));
             }
-            if (soundLevel > 70) {
+            if (soundLevel > 70 && !lock) {
+                lock = true
                 startRecording()
                 await sleep(2000)
                 stopRecording()
+                lock = false
             }
             // colorPids(average);
         }
