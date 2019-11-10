@@ -95,6 +95,7 @@ async function notify(notificationStr) {
         lock2 = true;
         console.log("I HAVE THE LOCK!!!!!!");
         navigator.vibrate(500);
+        await sleep(500)
         alert("Be careful, I think I hear a " + notificationStr + ".")
         // Notification.requestPermission().then(function (permission) {
             // If the user accepts, let's create a notification
