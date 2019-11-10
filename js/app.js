@@ -152,17 +152,15 @@ function sendToWatson(blob) {
 
 function displayPrediction(prediction) {
     const c = document.createElement('div')
-    const intro = document.createElement('h2')
-    intro.innerText = "Your predictions are..."
-    prediction.predictions.forEach(element => {
+    prediction.predictions.slice(0, 3).forEach(element => {
         console.log(element)
         var li = document.createElement('li');
         li.innerText = element.label
+        li.classList.add("list-group-item")
         c.appendChild(li)
     });
     navigator.vibrate([500]);
     const p = document.createElement('div')
-    p.appendChild(intro)
     p.appendChild(c)
 
     const predictions = document.getElementById("prediction");

@@ -31,9 +31,16 @@
       <!-- Masthead Heading -->
       <h2 class="masthead-heading text-uppercase mb-3">Auris</h2>
      
+      <div id="controls">
+        <button id="recordButton">Record</button>
+        <button id="pauseButton" disabled>Pause</button>
+        <button id="stopButton" disabled>Stop</button>
+      </div>
+      <div id="formats">Format: start recording to see sample rate</div>
+
       <div id="prediction_list_container" class="container mb-3"> 
         <div id="prediction_card" class="card bg-secondary">
-          <ul class="list-group">
+          <ul id="prediction" class="list-group">
             <li class="list-group-item"></li>
             <li class="list-group-item"></li>
             <li class="list-group-item"></li>
@@ -49,6 +56,8 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
+  <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+  <script src="js/app.js"></script>
 
   <!-- Custom scripts for this template -->
 
