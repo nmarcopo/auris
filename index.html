@@ -20,29 +20,24 @@
 
 </head>
 
-<body id="page-top" class="bg-primary align-items-center" onload="recordAudio()">
+<body id="page-top" class="bg-primary align-items-center" onload="onLoad()">
 
     <div id="card" class="col-md-6 container bg-primary d-flex align-items-center flex-column">
 
       <!-- Masthead Avatar Image -->
       <div class="col-lg-8 mb-3 mt-5" style="width: 80%">
-      <img id="mic_image" class="img-fluid" src="img/avataaars.svg" alt="">
+      
+      <img id="mic_image" class="img-fluid" src="img/mic_off.png" alt="">
       </div>
       <!-- Masthead Heading -->
       <h2 class="masthead-heading text-uppercase mb-1">Auris</h2>
       <h5 class="mb-3">Powered by IBM AI</h5>
      
-      <div id="controls">
-        <button id="recordButton">Record</button>
-        <button id="pauseButton" disabled>Pause</button>
-        <button id="stopButton" disabled>Stop</button>
-      </div>
-      <div id="formats">Start recording to see audio sample rate</div>
 
       <div id="prediction_list_container" class="container mb-3"> 
         <div id="prediction_card" class="card bg-secondary">
           <ul id="prediction" class="list-group">
-            <li class="list-group-item"></li>
+            <li class="list-group-item">Click Mic to Start</li>
             <li class="list-group-item"></li>
             <li class="list-group-item"></li>
           </ul>
