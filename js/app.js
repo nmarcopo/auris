@@ -94,11 +94,11 @@ async function notify(notificationStr) {
     if (!lock2) {
         lock2 = true;
         console.log("I HAVE THE LOCK!!!!!!");
+        navigator.vibrate(500);
         Notification.requestPermission().then(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
                 var notification = new Notification("Be careful, I think I hear a " + notificationStr + ".");
-                navigator.vibrate(500);
                 setTimeout(notification.close.bind(notification), 3000);
             }
         });
@@ -218,7 +218,6 @@ function displayPrediction(prediction) {
             notify(element.label);
         }
     });
-    navigator.vibrate([500]);
     const p = document.createElement('div')
     p.appendChild(c)
 
