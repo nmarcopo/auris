@@ -187,7 +187,7 @@ function sendToWatson(blob) {
     const formData = new FormData()
     formData.append('audio', blob, 'audio.wav')
 
-    endpoint = "http://max-audio-classifier.max.us-south.containers.appdomain.cloud/model/predict?start_time=0"
+    endpoint = "https://max-audio-classifier.max.us-south.containers.appdomain.cloud/model/predict?start_time=0"
 
     // make the POST call to the model endpoint and send the form data containing the audio
     fetch((endpoint), {
