@@ -18,16 +18,28 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 pauseButton.addEventListener("click", pauseRecording);
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function recordAudio() {
+    // while (true) {
+    //     startRecording()
+    //     await sleep(2000)
+    //     stopRecording()
+    // }
+}
+
 function startRecording() {
     console.log("recordButton clicked");
 
-    Notification.requestPermission().then(function (permission) {
-        // If the user accepts, let's create a notification
-        if (permission === "granted") {
-            var notification = new Notification("Notifications are enabled!");
-            setTimeout(notification.close.bind(notification), 3000);
-        }
-    });
+    // Notification.requestPermission().then(function (permission) {
+    //     // If the user accepts, let's create a notification
+    //     if (permission === "granted") {
+    //         var notification = new Notification("Notifications are enabled!");
+    //         setTimeout(notification.close.bind(notification), 3000);
+    //     }
+    // });
 
     /*
         Simple constraints object, for more advanced audio features see
