@@ -204,7 +204,7 @@ function sendToWatson(blob) {
         // display the prediction response
         displayPrediction(prediction)
     }).catch(function (err) {
-        alert('We couldn\'t catch that, please try again.')
+        // alert('We couldn\'t catch that, please try again.')
         console.log(err)
     })
 }
