@@ -95,11 +95,12 @@ async function notify(notificationStr) {
         lock2 = true;
         console.log("I HAVE THE LOCK!!!!!!");
         navigator.vibrate(500);
+        alert("Be careful, I think I hear a " + notificationStr + ".")
         // Notification.requestPermission().then(function (permission) {
             // If the user accepts, let's create a notification
             // if (permission === "granted") {
-                var notification = new Notification("Be careful, I think I hear a " + notificationStr + ".");
-                setTimeout(notification.close.bind(notification), 3000);
+                // var notification = new Notification("Be careful, I think I hear a " + notificationStr + ".");
+                // setTimeout(notification.close.bind(notification), 3000);
             // }
         // });
         await sleep(10000);
