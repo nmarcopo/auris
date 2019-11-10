@@ -21,6 +21,14 @@ pauseButton.addEventListener("click", pauseRecording);
 function startRecording() {
     console.log("recordButton clicked");
 
+    Notification.requestPermission().then(function (permission) {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+            var notification = new Notification("Notifications are enabled!");
+            setTimeout(notification.close.bind(notification), 3000);
+        }
+    });
+
     /*
         Simple constraints object, for more advanced audio features see
         https://addpipe.com/blog/audio-constraints-getusermedia/
@@ -111,40 +119,11 @@ function stopRecording() {
     //stop microphone access
     gumStream.getAudioTracks()[0].stop();
 
-    //create the wav blob and pass it on to createDownloadLink
-    rec.exportWAV(createDownloadLink);
+    //create the wav blob and pass it on to sendToWatson
+    rec.exportWAV(sendToWatson);
 }
 
-function createDownloadLink(blob) {
-
-    var url = URL.createObjectURL(blob);
-    var au = document.createElement('audio');
-    var li = document.createElement('li');
-    var link = document.createElement('a');
-
-    //name of .wav file to use during upload and download (without extendion)
-    var filename = new Date().toISOString();
-
-    //add controls to the <audio> element
-    au.controls = true;
-    au.src = url;
-
-    //save to disk link
-    link.href = url;
-    link.download = filename + ".wav"; //download forces the browser to donwload the file using the  filename
-    link.innerHTML = "Save to disk";
-
-    //add the new audio element to li
-    li.appendChild(au);
-
-    //add the filename to the li
-    li.appendChild(document.createTextNode(filename + ".wav "))
-
-    //add the save to disk link to li
-    li.appendChild(link);
-
-    //add the li element to the ol
-    recordingsList.appendChild(li);
+function sendToWatson(blob) {
 
     // create a new form data to send the audio
     const formData = new FormData()
@@ -165,20 +144,30 @@ function createDownloadLink(blob) {
     }).then(function (prediction) {
         // display the prediction response
         displayPrediction(prediction)
-        // maxLog('')
     }).catch(function (err) {
-        // maxLog(err, true)
+        alert('We couldn\'t catch that, please try again.')
         console.log(err)
-    }).then(function () {
-        // enable inputs/buttons
-        // disableElements(false)
     })
 }
 
 function displayPrediction(prediction) {
-    const c = document.createElement('code')
-    c.innerText = JSON.stringify(prediction, null, 4)
-    const p = document.createElement('pre')
+    const c = document.createElement('div')
+    const intro = document.createElement('h2')
+    intro.innerText = "Your predictions are..."
+    prediction.predictions.forEach(element => {
+        console.log(element)
+        var li = document.createElement('li');
+        li.innerText = element.label
+        c.appendChild(li)
+    });
+    navigator.vibrate([500]);
+    const p = document.createElement('div')
+    p.appendChild(intro)
     p.appendChild(c)
-    document.getElementById('prediction').appendChild(p)
+
+    const predictions = document.getElementById("prediction");
+    while (predictions.firstChild) {
+        predictions.removeChild(predictions.firstChild);
+    }
+    predictions.appendChild(p)
 }
